@@ -26,7 +26,16 @@ else:
     )
 st.markdown('[GPS時間系統](https://gwpy.github.io/docs/stable/time/)是指從1980年1月6日午夜開始起算的秒數，重力波開放科學中心網站的「[UTC/GPS Time Converter](https://www.gw-openscience.org/gps/)」頁面有提供將GPS時間系統轉換成[世界協調時間(UTC)](https://zh.wikipedia.org/zh-tw/%E5%8D%8F%E8%B0%83%E4%B8%96%E7%95%8C%E6%97%B6)的功能。')
 
+if st.sidebar.checkbox('去除欄位缺值的事件'):
+    gw_event_table.dropna(inplace=True)
+
+event_counts = len(gw_event_table)
+events_per_row = st.sidebar.number_input(
+    f'每頁顯示多少事件？ (共有{event_counts}筆事件)', min_value=1, max_value=event_counts, value=10
+)
+
 gb = GridOptionsBuilder.from_dataframe(gw_event_table)
+gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=events_per_row)
 gb.configure_column('事件名稱', pinned='left')
 for col in gw_event_table.columns.values.tolist():
     gb.configure_column(col, suppressMovable=True, suppressMenu=True, skipHeaderOnAutoSize=True)
