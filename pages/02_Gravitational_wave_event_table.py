@@ -10,7 +10,7 @@ from utilities import (
 page_title = '重力波事件列表'
 st.set_page_config(page_title=page_title, page_icon=':star', layout='wide')
 st.title(page_title)
-st.info('藉由[GWpy](https://gwpy.github.io/docs/stable/)套件取得[重力波開放科學中心](https://www.gw-openscience.org/)提供的重力波事件列表。')
+st.info('藉由[GWpy](https://gwpy.github.io/docs/stable/)套件取得[重力波開放科學中心](https://www.gw-openscience.org/)提供的重力波事件列表，並能匯出CSV或JSON檔。')
 
 with st.spinner('正在載入重力波事件列表，請稍候...'):
     gw_event_table = get_gw_event_table_by_gwpy()
@@ -47,4 +47,20 @@ AgGrid(
     allow_unsafe_jscode=True,
     height=400,
     theme='balham'
+)
+
+output_format = st.sidebar.radio('匯出格式', ['CSV', 'JSON'], horizontal=True)
+mime_dict = {
+    'CSV': 'text/csv',
+    'JSON': 'application/json'
+}
+output_data_dict = {
+    'CSV': gw_event_table.to_csv(index=False),
+    'JSON': gw_event_table.to_json(orient='records', force_ascii=False)
+}
+st.sidebar.download_button(
+    label=f'將事件列表匯出成{output_format}檔',
+    data=output_data_dict.get(output_format),
+    file_name=f'gravitational_wave_event_table.{output_format.lower()}',
+    mime=mime_dict.get(output_format)
 )
