@@ -1,6 +1,7 @@
 import streamlit as st
 from gwpy.table import EventTable
 from gwpy.time import from_gps
+from gwpy.timeseries import TimeSeries
 
 
 @st.experimental_memo(ttl=86400, show_spinner=False)
@@ -39,3 +40,14 @@ def convert_gps_to_utc(gw_event_table):
     )
 
     return gw_event_table
+
+
+@st.experimental_memo(ttl=3600, show_spinner=False)
+def get_gw_event_data(gw_event_gps_time, detector):
+    gw_event_data = TimeSeries.fetch_open_data(
+        detector, gw_event_gps_time - 15,
+        gw_event_gps_time + 15,
+        cache=False
+    )
+
+    return gw_event_data
