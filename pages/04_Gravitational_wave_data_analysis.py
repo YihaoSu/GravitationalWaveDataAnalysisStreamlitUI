@@ -13,8 +13,8 @@ def plot_gw_event_time_series(
     fig = gw_event_data.plot()
     ax = fig.gca()
     ax.set_epoch(gw_event_gps_time)
-    ax.set_title(f'{gw_detector} strain data around {gw_event_name}')
-    ax.set_ylabel('Gravitational-wave amplitude [strain]')
+    ax.set_title(f'{gw_detector} data around {gw_event_name}')
+    ax.set_ylabel('Gravitational-wave amplitude')
     ax.axvline(gw_event_gps_time, color='red', linestyle='--')
 
     return st.pyplot(fig)
@@ -45,13 +45,14 @@ gw_detector_dict = {
 gw_detector = st.sidebar.selectbox(
     '選擇重力波偵測器', list(gw_detector_dict.keys())
 )
+dt = st.sidebar.slider('觀測資料要涵蓋事件前後幾秒？', 1, 15, 15)
 
 with st.spinner(f'正在載入{gw_event_name}重力波事件的觀測資料，請稍候...'):
     gw_event_data = get_gw_event_data(
-        gw_event_gps_time, gw_detector_dict.get(gw_detector)
+        gw_detector_dict.get(gw_detector), gw_event_gps_time, dt
 )
 
-st.subheader(f'{gw_event_name}重力波事件發生前後15秒的觀測資料')
+st.subheader(f'{gw_event_name}重力波事件發生前後{dt}秒的觀測資料')
 st.success(f'{gw_event_name}是由兩個質量分別比太陽大上{mass1}及{mass2}倍的[緻密星體](https://zh.wikipedia.org/zh-tw/%E8%87%B4%E5%AF%86%E6%98%9F)合併所產生的重力波事件，於{gw_event_utc_time}(UTC)被觀測到。')
 plot_gw_event_time_series(
     gw_event_data, gw_event_name, gw_detector, gw_event_gps_time
