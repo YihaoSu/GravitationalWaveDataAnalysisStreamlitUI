@@ -1,10 +1,8 @@
 import numpy as np
+from utilities.numpy_compat import patch_numpy
 
-# Compatibility patches for deprecated numpy attributes used by dependencies
-if not hasattr(np, "bool8"):
-    np.bool8 = np.bool_
-if not hasattr(np, "product"):
-    np.product = np.prod
+# Apply numpy compatibility shims for third-party packages
+patch_numpy()
 
 import streamlit as st
 import plotly.express as px
