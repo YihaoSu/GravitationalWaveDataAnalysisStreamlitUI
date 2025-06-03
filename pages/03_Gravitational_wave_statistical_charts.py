@@ -1,3 +1,8 @@
+import numpy as np
+
+if not hasattr(np, "bool8"):
+    np.bool8 = np.bool_
+
 import streamlit as st
 import plotly.express as px
 
