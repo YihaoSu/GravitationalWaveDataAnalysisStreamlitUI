@@ -1,4 +1,4 @@
-streamlit==1.13.0
+streamlit>=1.45.1
 streamlit-aggrid==0.3.4.post3
 gwpy==3.0.7
 plotly==5.10.0

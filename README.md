@@ -5,6 +5,8 @@
 
 此Web App是以重力波資料分析作為範例，用來教學及推廣公民科學，由[蘇羿豪](https://astrobackhacker.tw/)基於[Streamlit](https://streamlit.io/)開發，[程式碼](https://github.com/YihaoSu/GravitationalWaveDataAnalysisStreamlitUI)以MIT授權條款開源，並將開發過程紀錄在2022 iThome鐵人賽的系列文章「[跟著黑蛋用Streamlit速成天文資料分析Web App](https://ithelp.ithome.com.tw/users/20103436/ironman/5820)」中。
 
+本專案已更新至最新版的 Streamlit，相依套件請依照 `requirements.txt` 安裝。
+
 點擊上方的「Open in Streamlit」圖示，即可瀏覽此app。
 
 ## 在自己的電腦上運行此app
