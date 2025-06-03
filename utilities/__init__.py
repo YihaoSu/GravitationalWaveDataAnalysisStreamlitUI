@@ -4,7 +4,7 @@ from gwpy.time import from_gps
 from gwpy.timeseries import TimeSeries
 
 
-@st.experimental_memo(ttl=86400, show_spinner=False)
+@st.cache_data(ttl=86400, show_spinner=False)
 def get_gw_event_table_by_gwpy():
     gw_event_table = EventTable.fetch_open_data('GWTC').to_pandas()
     gw_event_table = gw_event_table[
@@ -42,7 +42,7 @@ def convert_gps_to_utc(gw_event_table):
     return gw_event_table
 
 
-@st.experimental_memo(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=3600, show_spinner=False)
 def get_gw_event_data(detector, gw_event_gps_time):
     gw_event_data = TimeSeries.fetch_open_data(
         detector,
