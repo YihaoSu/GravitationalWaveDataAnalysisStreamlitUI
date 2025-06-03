@@ -34,7 +34,7 @@ def plot_gw_event_time_series(
     return st.pyplot(fig)
 
 
-def plot_qspecgram(qspecgram):
+def plot_qspecgram(qspecgram, gw_event_gps_time):
     fig = qspecgram.plot()
     ax = fig.gca()
     ax.set_xscale('seconds')
@@ -42,7 +42,7 @@ def plot_qspecgram(qspecgram):
     ax.set_epoch(gw_event_gps_time)
     ax.set_ylabel('Frequency [Hz]')
     ax.grid(True, axis='y', which='both')
-    ax.colorbar(cmap='viridis', label='Normalized energy')
+    fig.colorbar(ax.images[0], label='Normalized energy')
 
     return st.pyplot(fig)
 
@@ -56,7 +56,7 @@ with st.spinner('正在載入重力波事件列表，請稍候...'):
     gw_event_table = get_gw_event_table_by_gwpy()
 
 gw_event_list = gw_event_table['事件名稱'].to_list()
-gw_event_name = st.sidebar.selectbox('選擇重力波事件', gw_event_table)
+gw_event_name = st.sidebar.selectbox('選擇重力波事件', gw_event_list)
 gw_event = gw_event_table[
     gw_event_table['事件名稱'] == gw_event_name].iloc[0]
 gw_event_gps_time = gw_event['GPS']
@@ -108,4 +108,4 @@ qspecgram = gw_event_data.q_transform(
     outseg=(gw_event_gps_time - dt, gw_event_gps_time + dt),
     qrange=qrange
 )
-plot_qspecgram(qspecgram)
+plot_qspecgram(qspecgram, gw_event_gps_time)
