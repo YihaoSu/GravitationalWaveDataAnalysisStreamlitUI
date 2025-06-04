@@ -3,3 +3,4 @@ streamlit-aggrid==1.0.5
 gwpy>=3.0.12
 plotly>=6.1.2
 altair<5
+astropy>=7.1.0
