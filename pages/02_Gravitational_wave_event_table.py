@@ -1,7 +1,5 @@
 import streamlit as st
 
-from utilities.numpy_compat import patch_numpy
-patch_numpy()
 
 from st_aggrid import AgGrid, GridOptionsBuilder
 
