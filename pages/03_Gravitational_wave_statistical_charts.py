@@ -1,9 +1,3 @@
-import numpy as np
-from utilities.numpy_compat import patch_numpy
-
-# Apply numpy compatibility shims for third-party packages
-patch_numpy()
-
 import streamlit as st
 import plotly.express as px
 
