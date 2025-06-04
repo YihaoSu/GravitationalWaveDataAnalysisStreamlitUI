@@ -1,5 +1,5 @@
 streamlit>=1.45.1
-streamlit-aggrid==1.1.5
+streamlit-aggrid==1.0.5
 gwpy>=3.0.12
 plotly>=6.1.2
 altair==5.5.0

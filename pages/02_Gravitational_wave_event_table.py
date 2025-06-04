@@ -1,8 +1,9 @@
 import streamlit as st
-from st_aggrid import AgGrid, GridOptionsBuilder
 
 from utilities.numpy_compat import patch_numpy
 patch_numpy()
+
+from st_aggrid import AgGrid, GridOptionsBuilder
 
 from utilities import (
     get_gw_event_table_by_gwpy,
